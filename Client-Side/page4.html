@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Details</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+      <div id='head'>
+        <a href="https://helmlearning.com">
+            <img src='static/logo.png', width=325px>
+        </a>
+        <div id='header_text'>
+            <h1>Thank you for signing up for this class!</h1>
+        </div>
+      </div>
+    <div id="root">
+        <div id="info" class="peasant">
+            <p id='info_name'></p>
+            <p id='info_description'></p>
+            <p id='info_teacher'></p>
+            <p id='info_time'></p>
+            <p id='info_week'></p>
+            <div>
+                <p style="margin-bottom: 5px;" id='info_zoom'></p>
+                <div style="margin-bottom: 10px;margin-left:-3px">
+                    <button onclick="copy_zoom_link()">Copy Zoom Link</button>
+                </div>
+                <p style="font-size:10px;color:#6e6e6e">All information on this page has been sent in an email to you.</p>
+            </div>
+        </div>
+        <button style="width:100%" onclick="go_to_classes()">Sign up for more classes!</button>
+    </div>
+    <script src="scripts.js"></script>
+    <script>
+        var name = "Fun & Games with Python";
+        var description = "This course is an introduction to Python. Python has been used to create many applications we use today, like Reddit, Spotify, Youtube, and more. This course goes over how to use Python, and will make projects and games at the end using Tkinter like Rock Paper Scissors, Tic Tac Toe, and more.";
+        var teacher = "Vikram Anantha";
+        var email = "vikramanantha@gmail.com";
+        var time = "3:30pm - 5:00pm";
+        var week = "Aug 17 2020";
+        var zoom = "https://us02web.zoom.us/j/81055122748?pwd=aEhVOUFVUk5DN0FIdlkzNENoaE5tZz09";
+
+        /*
+        const request = XMLHttpRequest();
+        const url = '';
+        request.open('GET', url)
+
+        
+        var name = data["Name"];
+        var teacher = data["Teacher"];
+        var email = data["Email"];
+        var time = data["Time"];
+        var week = data["Week"];
+        var zoom = data["Zoom"]
+        */
+
+        document.getElementById('info_name').innerHTML = name;
+        document.getElementById('info_description').innerHTML = description;
+        document.getElementById('info_teacher').innerHTML = "Taught by " + teacher + ' (<a href="' + email + '">' + email + '</a>)';
+        document.getElementById('info_time').innerHTML = time + " EST";
+        document.getElementById('info_week').innerHTML = "Running the week of " + week;
+        document.getElementById('info_zoom').innerHTML = "<a href=" + zoom + ">Click Here to Join Class!</a>";
+        //name = document.createElement("p");
+        //name.innerHTML = "Name: " + name;
+        //document.body.appendChild(name);
+
+        function copy_zoom_link() {
+            var dummy = document.createElement("textarea");
+            // to avoid breaking orgain page when copying more words
+            // cant copy when adding below this code
+            // dummy.style.display = 'none'
+            document.body.appendChild(dummy);
+            //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+            dummy.value = zoom;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("Copied!")
+        }
+
+        function go_to_classes() {
+            window.location.href = 'https://helmlearning.com/our-classes';
+        }
+
+    </script>
+  </body>
+</html>

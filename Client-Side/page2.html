@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Sign up</title>
+    
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+          rel="stylesheet"
+        />
+        <link href="style.css" rel="stylesheet" />
+      </head>
+
+      <body>
+        <div id="head">
+            <a href="https://helmlearning.com">
+                <img src='static/logo.png', width=320px>
+            </a>
+            <div id='header_text'>
+                <h1 id="header_signup"></h1>
+            </div>
+        </div>
+
+        <div id="root">
+            <div id="new_sys" class="input_fields" class="peasant" style="background-color: #b5ffb0;">
+                <h2>Welcome Aboard!</h2>
+                <h3 style="color: black; font-size: 14px;">Looks like you are new to HELM! Please enter some more information about the student. </h3>
+                <h3 style="color: black; font-size: 14px;">If this is incorrect, please go <a href="page1.html">back</a> and make sure the email and name you have typed in is the same as previous signup experieneces.</h3>
+            </div>
+            <div id="instructions">
+                <h3> Please enter more details about the student. (* means required)</h3>                
+            </div>
+            <div id="input_fields_first_name" class="input_fields" class="peasant">
+                <h2>Student First Name*</h2>
+                <input disabled type="text" id="first_name" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's first name" required>
+            </div>
+            <div id="input_fields_email" class="input_fields" class="peasant">
+                <h2>Student Email*</h2>
+                <input disabled type="email" id="email" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's email"required>
+            </div>
+            <div id="input_fields_last_name" class="input_fields" class="peasant">
+                <h2>Student Last Name*</h2>
+                <input type="text" id="last_name" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's last name"required>
+            </div>
+            <div id="input_fields_parent_email" class="input_fields" class="peasant">
+                <h2>Parent Email*</h2>
+                <input type="email" id="parent_email" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter a different email from before"required>
+            </div>
+            <div id="input_fields_age" class="input_fields" class="peasant">
+                <h2>Student Grade</h2>
+                <input type="number" id="age" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's grade (number)">
+            </div>
+            <div id="input_fields_town" class="input_fields" class="peasant">
+                <h2>Town</h2>
+                <input type="text" id="town" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter where the student lives (town)">
+            </div>
+            <div id="input_fields_state" class="input_fields" class="peasant">
+                <h2>State</h2>
+                <input type="text" id="state" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter where the student lives (state)">
+            </div>
+            <div id="input_fields_hearabout" class="input_fields" class="peasant">
+                <h2>How did you hear about us?</h2>
+                <input type="text" id="hearabout" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter how you learned about HELM">
+            </div>
+            <div id="submit" class="input_fields" class="peasant">
+                <button onclick="submit()" style="width:80px;">Submit</button>
+            </div>
+            
+        </div>
+
+
+
+      </body>
+      <script>
+          var name = "Fun & Games with Python";
+          class_name = document.getElementById("header_signup");
+          class_name.innerHTML = "Sign up for " + name;
+
+          var url = document.location.href,
+          fname = url.split('?')[1].split('jd2r6deuqqjd')[0].split('=')[1];
+          email = url.split('?')[1].split('jd2r6deuqqjd')[1].split('=')[1];
+          console.log(fname);
+          console.log(email);
+          fname_textbox = document.getElementById('first_name');
+          email_textbox = document.getElementById('email');
+          fname_textbox.value = fname;
+          email_textbox.value = email;
+
+          function popup(input_id) {
+            textbox = document.getElementById(input_id);
+            textbox_div = document.getElementById('input_fields_' + input_id);
+            textbox_div.style.boxShadow = "1px 1px 1px 2px #6e6e6e, 20px 20px 20px #6e6e6e";
+            textbox_div.style.transitionTimingFunction = "ease-out";
+            textbox_div.style.transition = "all 0.25s";
+            textbox_div.style.marginBottom = "20px";
+            textbox_div.style.marginTop = "0px";
+            textbox_div.style.marginLeft = "-3px";
+              
+          }
+
+          function popdown(input_id) {
+            textbox = document.getElementById(input_id);
+            textbox_div = document.getElementById('input_fields_' + input_id);
+            textbox_div.style.boxShadow = "None";
+            textbox_div.style.marginBottom = "10px";
+            textbox_div.style.marginLeft = "0px";
+
+          }
+
+          function submit() {
+              fname = document.getElementById("first_name").value;
+              console.log(fname);
+              email = document.getElementById("email").value;
+              console.log(email);
+              lname = document.getElementById("last_name").value;
+              console.log(lname);
+              pemail = document.getElementById("parent_email").value;
+              console.log(pemail);
+              age = document.getElementById("age").value;
+              console.log(age);
+              town = document.getElementById("town").value;
+              console.log(town);
+              state = document.getElementById("state").value;
+              console.log(state);
+              hearabout = document.getElementById("hearabout").value;
+              console.log(hearabout);
+              if (pemail == email) {
+                  alert("Please enter a different email for Parent Email");
+                  return false;
+              }
+              window.location.href = 'page3.html';
+          }
+
+          function go_back() {
+            window.location.href = 'page1.html';
+          }
+      </script>
+
+
+
+</html>

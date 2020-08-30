@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Interests Form</title>
+    
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+          rel="stylesheet"
+        />
+        <link href="style.css" rel="stylesheet" />
+      </head>
+      <body>
+        <div id="head">
+            <a href="https://helmlearning.com">
+                <img src='static/logo.png', width=320px>
+            </a>
+            <div id='header_text'>
+                <h1 id="header_signup">Interests Form</h1>
+            </div>
+        </div>
+        <div>
+            <div id="instructions" class="peasant"><h3>Please click on the subjects and choose any interests that you like. You can select multiple, but select at least one.</h3></div>
+            <div id="collapse_buttons">
+                <button class="collapse">Art</button>
+                <div class="collapse_content">
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Physical</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Music</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Music Theory</label>
+                    </div>
+                </div>
+                <button class="collapse">Science</button>
+                <div class="collapse_content">
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Life</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Biology</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Astronomy</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Earth Science</label>
+                    </div>
+                    
+                </div>
+                <button class="collapse">Math</button>
+                <div class="collapse_content">
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Geometry</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Algebra</label>
+                    </div>
+                </div>
+                <button class="collapse">Humanities</button>
+                <div class="collapse_content">
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">History</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Writing</label>
+                    </div>
+                    <div width=100%>
+                        <label><input type="checkbox" class="checkbox" class="peasant">Physical</label>
+                    </div>
+                </div>
+                <div id="submit" style="border-radius:10px; padding-top:1px;margin-top:10px;">
+                    <button onclick="submit()" style="width:80px;" >Submit</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var coll = document.getElementsByClassName("collapse");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+
+        function submit() {
+              window.location.href = 'page4.html';
+          }
+
+    </script>
+</html>
+    

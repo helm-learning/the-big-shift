@@ -1,0 +1,25 @@
+[
+    {
+        "parent_name": "Art",
+        "interests": [
+            "Physical",
+            "Drawing",
+            "Music"
+        ]
+    },
+    {
+        "parent_name": "Science",
+        "interests": [
+            "Biology",
+            "Life",
+            "Geology"
+        ]
+    },
+    {
+        "parent_name": "Math",
+        "interests": [
+            "Algebra",
+            "Geometry",
+        ]
+    }
+]
