@@ -33,17 +33,14 @@
                 <h3> Please enter more details about the student. (* means required)</h3>                
             </div>
             <div id="input_fields_first_name" class="input_fields" class="peasant">
-                <h2>Student First Name*</h2>
-                <input disabled type="text" id="first_name" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's first name" required>
+                <h2>Student Name*</h2>
+                <input disabled type="text" id="first_name" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's name" required>
             </div>
             <div id="input_fields_email" class="input_fields" class="peasant">
                 <h2>Student Email*</h2>
                 <input disabled type="email" id="email" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's email"required>
             </div>
-            <div id="input_fields_last_name" class="input_fields" class="peasant">
-                <h2>Student Last Name*</h2>
-                <input type="text" id="last_name" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter the student's last name"required>
-            </div>
+            
             <div id="input_fields_parent_email" class="input_fields" class="peasant">
                 <h2>Parent Email*</h2>
                 <input type="email" id="parent_email" onfocus="popup(id)" onblur="popdown(id)" placeholder="Please enter a different email from before"required>
@@ -74,18 +71,29 @@
 
       </body>
       <script>
-          var name = "Fun & Games with Python";
-          class_name = document.getElementById("header_signup");
-          class_name.innerHTML = "Sign up for " + name;
+          
 
-          var url = document.location.href,
-          fname = url.split('?')[1].split('jd2r6deuqqjd')[0].split('=')[1];
-          email = url.split('?')[1].split('jd2r6deuqqjd')[1].split('=')[1];
+          var url = document.location.href
+          var fname = url.split('?')[1].split('jd2r6deuqqjd')[0].split('=')[1];
+          var email = url.split('?')[1].split('jd2r6deuqqjd')[1].split('=')[1];
+          var name = url.split('?')[1].split('jd2r6deuqqjd')[2].split('=')[1];
+          console.log(name)
+          var class_name = name.toUpperCase()
+          for (i = 0; i < name.indexOf('-'); i++) {
+            class_name = class_name.replace('-', " ");
+          }
+          //var name = "Fun & Games with Python";
+          var the_class_name = document.getElementById("header_signup");
+          the_class_name.innerHTML = "Sign up for the " + class_name + ' class';
           console.log(fname);
           console.log(email);
+          if (fname.indexOf('$') > -1) {
+            fname = fname.replace('$', " ");
+          }
           fname_textbox = document.getElementById('first_name');
           email_textbox = document.getElementById('email');
           fname_textbox.value = fname;
+          
           email_textbox.value = email;
 
           function popup(input_id) {
@@ -114,10 +122,39 @@
               console.log(fname);
               email = document.getElementById("email").value;
               console.log(email);
-              lname = document.getElementById("last_name").value;
-              console.log(lname);
+              //lname = document.getElementById("last_name").value;
+              //console.log(lname);
+            //   if (lname == '') {
+            //     alert("It is required that you put your Last Name")
+            //     document.getElementById("last_name").style.borderColor = "red"
+            //     return;
+            //   }
+            //   else {
+            //     document.getElementById("last_name").style.borderColor = ""
+            //   }
               pemail = document.getElementById("parent_email").value;
               console.log(pemail);
+              if (pemail == '') {
+                alert("It is required that you put your Parent's email")
+                document.getElementById("parent_email").style.borderColor = "red"
+                return;
+              } else {
+                document.getElementById("parent_email").style.borderColor = ""
+              }
+              if (!pemail.includes("@")) {
+                alert("Please enter a valid email")
+                document.getElementById("parent_email").style.borderColor = "red"
+                return;
+              } else {
+                document.getElementById("parent_email").style.borderColor = ""
+              }
+              if (pemail == email) {
+                  alert("Please enter a different email for Parent Email");
+                  document.getElementById("parent_email").style.borderColor = "red"
+                  return false;
+              } else {
+                document.getElementById("parent_email").style.borderColor = ""
+              }
               age = document.getElementById("age").value;
               console.log(age);
               town = document.getElementById("town").value;
@@ -130,7 +167,14 @@
                   alert("Please enter a different email for Parent Email");
                   return false;
               }
-              window.location.href = 'page3.html';
+              if (fname.indexOf(' ') > -1) {
+                fname = fname.replace(' ', "$");
+              }
+              var request = new XMLHttpRequest()
+              url_a = 'http://127.0.0.1:5000/api/v1/resources/page2-receive?fname=' + fname + '&email=' + email + '&pemail=' + pemail + '&age=' + age + '&town=' + town + '&state=' + state + '&hearabout=' + hearabout;
+              request.open('GET', url_a, true);
+              request.send()
+              window.location.href = 'page4.html?name=' + fname + 'jd2r6deuqqjdemail=' + email + 'jd2r6deuqqjdclass=' + name;
           }
 
           function go_back() {

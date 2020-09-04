@@ -19,11 +19,12 @@
             <img src='static/logo.png', width=325px>
         </a>
         <div id='header_text'>
-            <h1>Thank you for signing up for this class!</h1>
+            <h1 id='header_signup'>You are now signed up for Fun & Games with Python</h1>
         </div>
       </div>
     <div id="root">
         <div id="info" class="peasant">
+            <p id='welcome'></p>
             <p id='info_name'></p>
             <p id='info_description'></p>
             <p id='info_teacher'></p>
@@ -41,34 +42,62 @@
     </div>
     <script src="scripts.js"></script>
     <script>
-        var name = "Fun & Games with Python";
+        var url = document.location.href
+        var fname = url.split('?')[1].split('jd2r6deuqqjd')[0].split('=')[1];
+        var email = url.split('?')[1].split('jd2r6deuqqjd')[1].split('=')[1];
+        var name = url.split('?')[1].split('jd2r6deuqqjd')[2].split('=')[1];
+        console.log(name)
+        var class_name = name.toUpperCase()
+        for (i = 0; i < name.indexOf('-'); i++) {
+          class_name = class_name.replace('-', " ");
+        }
+        /*var name = "Fun & Games with Python";
         var description = "This course is an introduction to Python. Python has been used to create many applications we use today, like Reddit, Spotify, Youtube, and more. This course goes over how to use Python, and will make projects and games at the end using Tkinter like Rock Paper Scissors, Tic Tac Toe, and more.";
         var teacher = "Vikram Anantha";
         var email = "vikramanantha@gmail.com";
         var time = "3:30pm - 5:00pm";
         var week = "Aug 17 2020";
         var zoom = "https://us02web.zoom.us/j/81055122748?pwd=aEhVOUFVUk5DN0FIdlkzNENoaE5tZz09";
-
-        /*
-        const request = XMLHttpRequest();
-        const url = '';
-        request.open('GET', url)
-
-        
-        var name = data["Name"];
-        var teacher = data["Teacher"];
-        var email = data["Email"];
-        var time = data["Time"];
-        var week = data["Week"];
-        var zoom = data["Zoom"]
         */
+        if (fname.indexOf(' ') > -1) {
+            fname = fname.replace(' ', "$");
+          }
+        const url_a = 'http://127.0.0.1:5000/api/v1/resources/page4-receive?class=' + name;
 
-        document.getElementById('info_name').innerHTML = name;
-        document.getElementById('info_description').innerHTML = description;
-        document.getElementById('info_teacher').innerHTML = "Taught by " + teacher + ' (<a href="' + email + '">' + email + '</a>)';
-        document.getElementById('info_time').innerHTML = time + " EST";
-        document.getElementById('info_week').innerHTML = "Running the week of " + week;
-        document.getElementById('info_zoom').innerHTML = "<a href=" + zoom + ">Click Here to Join Class!</a>";
+        const request = new XMLHttpRequest();
+        
+        request.open('GET', url_a)
+        //var taking = new XMLHttpRequest();
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.onload = function () {
+          
+          var data = JSON.parse(this.response);
+          var le_class_name = data["Name"];
+          console.log(name)
+          var description = data["Description"];
+          var teacher = data["Teacher"];
+          var email = data["Email"];
+          var time = data["Time"];
+          var week = data["Week"];
+          var zoom = data["Zoom"]
+          if (fname.indexOf('$') > -1) {
+            fname = fname.replace('$', " ");
+          }
+          document.getElementById('header_signup').innerHTML = class_name + ' <br>Class Details';
+          document.getElementById('welcome').innerHTML = 'Welcome to HELM, ' + fname + '<br>You are now signed up for this class:';
+          document.getElementById('info_name').innerHTML = '<i>Class Name:</i> ' + le_class_name;
+          document.getElementById('info_description').innerHTML = '<i>Description:</i> ' + description;
+          document.getElementById('info_teacher').innerHTML = "<i>Teacher:</i> " + teacher + ' (<a href="' + email + '">' + email + '</a>)';
+          document.getElementById('info_time').innerHTML = '<i>Class Time:</i> ' + time + " EST";
+          document.getElementById('info_week').innerHTML = "<i>Dates:</i> " + week;
+          document.getElementById('info_zoom').innerHTML = "<i>Zoom Link:</i> <a href=" + zoom + ">Click Here to Join Class!</a>";
+        }
+        request.send()
+        var email_url = 'http://127.0.0.1:5000/api/v1/resources/sendemail?class=' + name + '&fname=' + fname + '&email=' + email;
+        const email_request = new XMLHttpRequest();
+        email_request.open('GET', email_url)
+        email_request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        email_request.send()
         //name = document.createElement("p");
         //name.innerHTML = "Name: " + name;
         //document.body.appendChild(name);

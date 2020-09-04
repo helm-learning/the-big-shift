@@ -111,7 +111,7 @@
                 fname = fname.replace(' ', "$");
             }
             //const giving = XMLHttpRequest();
-            const url = 'http://127.0.0.1:5000/page1/v1/resources/page1-receive';
+            const url = 'http://127.0.0.1:5000/api/v1/resources/page1-receive?fname=' + fname + '&email=' + email + '&class=' +name;
             /*
             giving.open(POST, url, true);
             giving.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -124,11 +124,8 @@
             taking.onload = function () {
                 var output = JSON.parse(this.response)
                 console.log("asdf " + output)
-                if (output["output"] == 2) {
-                    window.location.href = 'page2.html?name=' + fname + 'jd2r6deuqqjdemail=' + email;
-                } else {
-                    window.location.href = 'page' + output["output"] + '.html';
-                }
+                    //window.location.href = 'page2.html?name=' + fname + 'jd2r6deuqqjdemail=' + email+ 'jd2r6deuqqjdclass=' + name;
+                    window.location.href = 'page' + output["output"] + '.html?name=' + fname + 'jd2r6deuqqjdemail=' + email+ 'jd2r6deuqqjdclass=' + name;;
             }
             taking.send()
             

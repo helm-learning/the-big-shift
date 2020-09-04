@@ -42,8 +42,12 @@ div {
     font-family: 'Lexend Deca';
 }
 
-#info_name {
+#welcome {
     font-size: 25px;
+}
+
+#info_name {
+    font-size: 20px;
 }
 
 #info {
@@ -67,7 +71,7 @@ a {
     transition-timing-function: ease-in;
     margin-bottom: 14px;
     margin-top: 5px;
-    padding-right:7px;
+    padding-right:10px;
 }
 
 button {
