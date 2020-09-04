@@ -14,12 +14,6 @@ Determinator key:
     D = 4 --> student is returning and interests, proceeed to page 4
 '''
 
-
-
-
-
-
-
 # This is the code that runs all the operations for the first page of the webpage set
 # The operations that are done are:
 #   1. Read in info from the JSON file (name + email)
@@ -31,6 +25,10 @@ import json
 import numpy
 import mysql.connector
 from mysql.connector import errorcode
+import flask
+from flask import request, jsonify
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
 
 config = {
     'user': 'helmlearning',
@@ -56,69 +54,72 @@ def create_connection():
         else:
             print(err)
         raise
-cnx = create_connection()
-cursor = cnx.cursor(buffered=True)
+
 
 # conn=MySQLdb.connect(host='helmlearningdatabase-1.cnoqlueuri3g.us-east-1.rds.amazonaws.com', database='HELM_Test_Database', user='helmlearning',passwd='H3lml3arning')
+@app.route('/page1/v1/resources/page1-receive', methods=['GET'])
+def page1_receive():
+    cnx = create_connection()
+    cursor = cnx.cursor(buffered=True)
+    fhandle = "page1-send.json"
 
-fhandle = "/Users/vikramanantha/Documents/HELM/Codes/Server-Side/page1-send.json"
+    with open(fhandle, 'r') as j:
+        contents = json.loads(j.read())
+        print(contents)
 
-with open(fhandle, 'r') as j:
-    contents = json.loads(j.read())
-    print(contents)
-
-fname = ''
-email = ''
-#for item in contents:
-fname = contents['fname']
-email = contents['email']
-class_name = contents['class']
-print('Name: ', fname)
-print('Email: ', email)
-print('Class: ', class_name)
+    fname = ''
+    email = ''
+    #for item in contents:
+    fname = contents['fname']
+    email = contents['email']
+    class_name = contents['class']
+    print('Name: ', fname)
+    print('Email: ', email)
+    print('Class: ', class_name)
 
 
-# query_count = "SELECT COUNT(name) FROM students WHERE id=107"
-query = "SELECT * FROM students WHERE Student_Name = '{}' AND Email_Address = '{}'".format(fname, email)
-sql2 = "SELECT * FROM classes WHERE short_name = '{}'".format(class_name)
-# query_count = "SELECT COUNT(name) FROM students WHERE name = %s AND email = %s"
+    # query_count = "SELECT COUNT(name) FROM students WHERE id=107"
+    query = "SELECT * FROM students WHERE Student_Name = '{}' AND Email_Address = '{}'".format(fname, email)
+    sql2 = "SELECT * FROM classes WHERE short_name = '{}'".format(class_name)
+    # query_count = "SELECT COUNT(name) FROM students WHERE name = %s AND email = %s"
 
-# count = cursor.execute(query_count, adr)
-# count = cursor.execute(query_count)
+    # count = cursor.execute(query_count, adr)
+    # count = cursor.execute(query_count)
 
-determinator = 4
-    
-cursor.execute(query)
-result = cursor.fetchall()
-cursor.execute(sql2)
-classes = cursor.fetchall()
-    
-print(result)
-    
-if result == []:
-    print('none')
-    determinator = 2
-    
-# else:
-#     for r in result:
-#         print(r)
+    determinator = 4
+        
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.execute(sql2)
+    classes = cursor.fetchall()
+        
+    print(result)
+        
+    if result == []:
+        print('none')
+        determinator = 2
+        
+    # else:
+    #     for r in result:
+    #         print(r)
 
-if classes == []:
-    determinator = -1
+    if classes == []:
+        determinator = -1
 
-print(determinator)
-cnx.commit()
+    print(determinator)
+    cnx.commit()
 
-# close the cursor and database connection
-cursor.close()
-cnx.close()
+    # close the cursor and database connection
+    cursor.close()
+    cnx.close()
 
-data = {
-    "output": determinator
-}
+    data = {
+        "output": determinator
+    }
 
-with open('page1-receive.json', 'w') as outfile:
-    json.dump(data, outfile)
+    # with open('page1-receive.json', 'w') as outfile:
+    #     json.dump(data, outfile)
+    return jsonify(data)
 
 
 
@@ -171,3 +172,4 @@ for item in data_in:
     print('Name: ', item['fname'])
     print('Email: ', item['email'])
 '''
+app.run()
