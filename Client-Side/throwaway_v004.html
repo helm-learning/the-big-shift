@@ -31,25 +31,12 @@
             <p id='info_time'></p>
             <p id='info_week'></p>
         </div>
-        <button style="width:100%" onclick="signup()">SIGN UP FOR THIS CLASS HERE</button>
+        <button style="width:100%" onclick="signup()">Click here to sign up for this class</button>
     </div>
     <script src="scripts.js"></script>
     <script>
         var url = document.location.href
-        var name = url.split('?')[1].split('=')[1];
-        var id = null
-        if (name.indexOf('&') > 0) {
-          id = name.split('&')[1]
-          name = name.split('&')[0]
-        }
-        if (id != null) {
-          const request2 = new XMLHttpRequest();
-          request2.open('GET', 'http://52.21.172.100:5000/api/v1/resources/page0-data?class=' + name + '&id=' + id)
-          //var taking = new XMLHttpRequest();
-          request2.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-          request2.onload = function () {}
-          request2.send()
-        }
+        var name = url.split('?')[1]
         console.log(name)
         var class_name = name.toUpperCase()
         for (i = 0; i < name.indexOf('-'); i++) {
@@ -88,15 +75,8 @@
           document.getElementById('info_name').innerHTML = le_class_name;
           document.getElementById('info_description').innerHTML = description;
           document.getElementById('info_teacher').innerHTML = "<i>Taught by:</i> " + teacher;
-          document.getElementById('info_age').innerHTML = "<i>Recommended Grades:</i> " + age;
-          document.getElementById('info_teacher').innerHTML = "<i>Teacher:</i> " + teacher;
-          if (week == "TBD") {
-            week = "No Session is currently scheduled"
-            time = "No Session is currently scheduled"
-          } else {
-            time += " EST"
-          }
-          document.getElementById('info_time').innerHTML = '<i>Class Time:</i> ' + time;
+          document.getElementById('info_teacher').innerHTML = "<i>Recommended Grades:</i> " + age;
+          document.getElementById('info_time').innerHTML = '<i>Class Time:</i> ' + time + " EST";
           document.getElementById('info_week').innerHTML = "<i>Dates:</i> " + week;
 
         }
@@ -106,32 +86,14 @@
         //name.innerHTML = "Name: " + name;
         //document.body.appendChild(name);
 
+
         function signup() {
-          var ilysa = document.location.href
-          var name = ilysa.split('?')[1].split('=')[1];
-          var id = null
-          if (name.indexOf('&') > 0) {
-            id = name.split('&')[1]
-            name = name.split('&')[0]
-          }
-          if (id != null) {
-            var taking = new XMLHttpRequest();
-            taking.open('GET', 'http://52.21.172.100:5000/api/v1/resources/page0-to-next-page?id=' + id, true);
-            //taking.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            taking.onload = function () {
-                var output = JSON.parse(this.response)
-                if (output["is_correct"] == true) {
-                  window.location.href = "page4.html?" + id + '&class=' + class_name
-                }
-                else {
-                  window.location.href = "signup.html?class=" + class_name
-                }
-            }
-            taking.send()
-          } else {
-            window.location.href = "signup.html?class=" + class_name
-          }
+            var url = document.location.href
+            var name = url.split('?')[1]
+            console.log(name)
+            window.location.href = 'http://signup.helmlearning.com/signup.html?class=' + name;
         }
+
     </script>
   </body>
 </html>
